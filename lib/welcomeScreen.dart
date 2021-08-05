@@ -1,7 +1,10 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/signup.dart';
+
+import 'auth.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -73,18 +76,24 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   style: TextButton.styleFrom(
                       textStyle: const TextStyle(fontSize: 20)),
-                  onPressed: () {
-                    _navigateToSignUpScreen(context);
-                  },
+                  onPressed: () {},
                 )),
             SizedBox(height: 30),
             Container(
               child: TextButton(
                 child: Text(
-                  'Sign in',
+                  'Sign in with google',
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  User? user =
+                      await Authentication.signInWithGoogle(context: context);
+
+                  if (user != null) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => WelcomeScreen()));
+                  }
+                },
                 style: ButtonStyle(
                     side: MaterialStateProperty.all(
                         BorderSide(width: 2, color: Colors.green.shade900)),
@@ -116,6 +125,5 @@ class WelcomeScreen extends StatelessWidget {
 }
 
 void _navigateToSignUpScreen(BuildContext context) {
-  Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => SignUpScreen()));
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
 }

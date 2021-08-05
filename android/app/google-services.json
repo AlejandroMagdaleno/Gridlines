@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "31909107248",
+    "project_id": "gridlines-f0d83",
+    "storage_bucket": "gridlines-f0d83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31909107248:android:38fd7cfbc4349002bfbff5",
+        "android_client_info": {
+          "package_name": "com.example.gridlines"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31909107248-rdjnlhdpp10kuvos993pereh4jboqbci.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gridlines",
+            "certificate_hash": "0678b53413696f3096a58104e5ba007a8ba0e14a"
+          }
+        },
+        {
+          "client_id": "31909107248-ntlp2gmlhjuei64b0cc6ako491l7siq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDfE_3_UJSIV-jplghTvfQFyJMiXrOQOc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31909107248-ntlp2gmlhjuei64b0cc6ako491l7siq7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
