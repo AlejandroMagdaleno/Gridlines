@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gridlines/home.dart';
 import 'package:gridlines/signup.dart';
 
 import 'auth.dart';
@@ -90,8 +91,8 @@ class WelcomeScreen extends StatelessWidget {
                       await Authentication.signInWithGoogle(context: context);
 
                   if (user != null) {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => WelcomeScreen()));
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
                   }
                 },
                 style: ButtonStyle(
