@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gridlines/welcomeScreen.dart';
-
-import 'auth.dart';
+import 'package:gridlines/Athlete.dart';
+import 'package:gridlines/database.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -12,6 +10,11 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final TextEditingController pController = TextEditingController();
+  final TextEditingController fController = TextEditingController();
+  final TextEditingController lController = TextEditingController();
+  final TextEditingController eController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double height = 1;
@@ -44,6 +47,7 @@ class _SignUpState extends State<SignUp> {
               Container(
                   padding: EdgeInsets.only(top: height, left: 20, right: 20),
                   child: TextField(
+                    controller: pController,
                     decoration: InputDecoration(
                         labelText: "Password",
                         labelStyle:
@@ -52,6 +56,7 @@ class _SignUpState extends State<SignUp> {
               Container(
                   padding: EdgeInsets.only(top: height, left: 20, right: 20),
                   child: TextField(
+                    controller: fController,
                     decoration: InputDecoration(
                         labelText: "First Name",
                         labelStyle:
@@ -60,6 +65,7 @@ class _SignUpState extends State<SignUp> {
               Container(
                   padding: EdgeInsets.only(top: height, left: 20, right: 20),
                   child: TextField(
+                    controller: lController,
                     decoration: InputDecoration(
                         labelText: "Last name",
                         labelStyle:
@@ -68,6 +74,7 @@ class _SignUpState extends State<SignUp> {
               Container(
                   padding: EdgeInsets.only(top: height, left: 20, right: 20),
                   child: TextField(
+                    controller: eController,
                     decoration: InputDecoration(
                         labelText: "Email",
                         labelStyle:
@@ -96,7 +103,26 @@ class _SignUpState extends State<SignUp> {
                     'Create Account',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Athlete newUser = new Athlete();
+                    newUser.setId(saveAthlete(newUser));
+                    newUser.setEmailUser(
+                        fController.text, lController.text, eController.text);
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Column(
+                              children: <Widget>[
+                                Text("Password: " + pController.text),
+                                Text("First name: " + fController.text),
+                                Text("Last name: " + lController.text),
+                                Text("Email: " + eController.text)
+                              ],
+                            ),
+                          );
+                        });
+                  },
                   style: ButtonStyle(
                       side: MaterialStateProperty.all(
                           BorderSide(width: 2, color: Colors.green.shade900)),

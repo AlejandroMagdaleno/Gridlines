@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/home.dart';
 import 'package:gridlines/signup.dart';
+import 'database.dart';
+import 'Athlete.dart';
 
 import 'auth.dart';
 
@@ -89,6 +91,8 @@ class WelcomeScreen extends StatelessWidget {
                 onPressed: () async {
                   User? user =
                       await Authentication.signInWithGoogle(context: context);
+                  Athlete newUser = new Athlete();
+                  newUser.setId(saveAthlete(newUser));
 
                   if (user != null) {
                     Navigator.of(context).pushReplacement(

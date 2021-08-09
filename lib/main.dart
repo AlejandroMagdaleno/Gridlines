@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gridlines/home.dart';
+import 'package:gridlines/signup.dart';
 import 'welcomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
               print("Error");
               return (Text('something went wrong'));
             } else if (snapshot.hasData) {
-              print('snapshot has data, firebase went through ideally');
-              return WelcomeScreen();
+              print('snapshot has data, firebase went through');
+              return SignUp();
             } else {
               return Center(
                 child: CircularProgressIndicator(),
