@@ -11,13 +11,9 @@ class Athlete {
     this._id = id;
   }
 
-  void setGoogleUser(FirebaseAuth user) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    // from the sign in screen, we run this method if we use the sign in with google button
-  }
-
-  void setEmailUser(String fname, String lname, String email) {
+  Athlete(String fname, String lname, String email) {
     //  Run this method if the user signed up with email
+    //  Possibly good to use for google user as well since google user only returns full display name. Find a way to get the parsed first and last name from user by asking for it
     this.fName = fname;
     this.lName = lname;
     this.email = email;

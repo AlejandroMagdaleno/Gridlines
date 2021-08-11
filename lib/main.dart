@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gridlines/home.dart';
 import 'package:gridlines/signup.dart';
 import 'welcomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: FutureBuilder(
           future: _fbGrid,
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
               return (Text('something went wrong'));
             } else if (snapshot.hasData) {
               print('snapshot has data, firebase went through');
-              return SignUp();
+              return WelcomeScreen();
             } else {
               return Center(
                 child: CircularProgressIndicator(),

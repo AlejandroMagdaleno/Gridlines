@@ -81,33 +81,24 @@ class WelcomeScreen extends StatelessWidget {
                       textStyle: const TextStyle(fontSize: 20)),
                   onPressed: () {},
                 )),
-            SizedBox(height: 30),
             Container(
-              child: TextButton(
-                child: Text(
-                  'Sign in with google',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  User? user =
-                      await Authentication.signInWithGoogle(context: context);
-                  Athlete newUser = new Athlete();
-                  newUser.setId(saveAthlete(newUser));
+              child: SizedBox(
+                  height: 200,
+                  width: 150,
+                  child: IconButton(
+                    iconSize: 100,
+                    padding: EdgeInsets.all(0.0),
+                    icon: Image.asset('images/signwithgoogle.png'),
+                    onPressed: () async {
+                      User? user = await Authentication.signInWithGoogle(
+                          context: context);
 
-                  if (user != null) {
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  }
-                },
-                style: ButtonStyle(
-                    side: MaterialStateProperty.all(
-                        BorderSide(width: 2, color: Colors.green.shade900)),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(vertical: 10, horizontal: 50)),
-                    textStyle:
-                        MaterialStateProperty.all(TextStyle(fontSize: 20))),
-              ),
+                      if (user != null) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => HomeScreen(user)));
+                      }
+                    },
+                  )),
             ),
             Container(
                 padding: EdgeInsets.only(top: 0),

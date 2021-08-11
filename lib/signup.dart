@@ -104,10 +104,9 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    Athlete newUser = new Athlete();
-                    newUser.setId(saveAthlete(newUser));
-                    newUser.setEmailUser(
+                    Athlete newUser = new Athlete(
                         fController.text, lController.text, eController.text);
+                    newUser.setId(saveAthlete(newUser));
                     showDialog(
                         context: context,
                         builder: (context) {
