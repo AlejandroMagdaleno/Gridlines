@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/dashboard.dart';
 
 class HomeScreen extends StatefulWidget {
-  User? currentUser;
-
-  HomeScreen(User? user) {
-    this.currentUser = user;
+  Athlete? athlete;
+  HomeScreen(Athlete athlete) {
+    this.athlete = athlete;
   }
 
   @override

@@ -92,10 +92,11 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () async {
                       User? user = await Authentication.signInWithGoogle(
                           context: context);
-
+                      // Find a way to pass athlete with user data
                       if (user != null) {
+                        Athlete newAthlete = new Athlete();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => HomeScreen(user)));
+                            builder: (context) => HomeScreen(newAthlete)));
                       }
                     },
                   )),
@@ -110,7 +111,8 @@ class WelcomeScreen extends StatelessWidget {
                   style: TextButton.styleFrom(
                       textStyle: const TextStyle(fontSize: 20)),
                   onPressed: () {
-                    _navigateToSignUpScreen(context);
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => SignUp()));
                   },
                 )),
           ],
@@ -118,8 +120,4 @@ class WelcomeScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-void _navigateToSignUpScreen(BuildContext context) {
-  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
 }

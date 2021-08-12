@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
+import 'package:gridlines/auth.dart';
 import 'package:gridlines/database.dart';
+import 'package:gridlines/home.dart';
+import 'package:gridlines/welcomeScreen.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -55,7 +59,7 @@ class _SignUpState extends State<SignUp> {
                   )),
               Container(
                   padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextField(
+                  child: TextFormField(
                     controller: fController,
                     decoration: InputDecoration(
                         labelText: "First Name",
@@ -64,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                   )),
               Container(
                   padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextField(
+                  child: TextFormField(
                     controller: lController,
                     decoration: InputDecoration(
                         labelText: "Last name",
@@ -73,7 +77,7 @@ class _SignUpState extends State<SignUp> {
                   )),
               Container(
                   padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextField(
+                  child: TextFormField(
                     controller: eController,
                     decoration: InputDecoration(
                         labelText: "Email",
@@ -82,7 +86,7 @@ class _SignUpState extends State<SignUp> {
                   )),
               Container(
                   padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextField(
+                  child: TextFormField(
                     decoration: InputDecoration(
                         labelText: "State",
                         labelStyle:
@@ -104,23 +108,15 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    Athlete newUser = new Athlete(
-                        fController.text, lController.text, eController.text);
+                    Authentication auth = new Authentication();
+                    print("object");
+                    auth.signUp(
+                        email: eController.text, password: pController.text);
+                    Athlete newUser = new Athlete();
                     newUser.setId(saveAthlete(newUser));
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Column(
-                              children: <Widget>[
-                                Text("Password: " + pController.text),
-                                Text("First name: " + fController.text),
-                                Text("Last name: " + lController.text),
-                                Text("Email: " + eController.text)
-                              ],
-                            ),
-                          );
-                        });
+
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => HomeScreen(newUser)));
                   },
                   style: ButtonStyle(
                       side: MaterialStateProperty.all(
