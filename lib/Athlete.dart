@@ -5,26 +5,31 @@ import 'package:flutter/services.dart';
 class Athlete {
   String fName = "";
   String lName = "";
-  String email = "";
-  String googleId = "";
+  String? displayName;
+  String? email;
   DatabaseReference? _id;
 
   void setId(DatabaseReference id) {
     this._id = id;
   }
 
-  setAthleteAccountID() async {
-    // set athlete google id to match firebase user id. google uid = this.googleid;
-    // later, when signing in, grab athlete where uid == googleid and pass that user context into the homescreen
+  void setAthleteDName(String? name) {
+    this.displayName = name;
+  }
+
+  void setAthleteEmail(String? email) {
+    // when a google user is created. pass in the email to the new athlete object made to store the email locally.
+    this.email = email;
   }
 
   Athlete() {}
 
   Map<String, dynamic> toJson() {
     return {
+      'display_name': this.displayName,
       'f_name': this.fName,
       'l_Name': this.lName,
-      'Email': this.email,
+      'email': this.email,
     };
   }
 }

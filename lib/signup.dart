@@ -109,10 +109,11 @@ class _SignUpState extends State<SignUp> {
                   ),
                   onPressed: () {
                     Authentication auth = new Authentication();
-                    print("object");
                     auth.signUp(
                         email: eController.text, password: pController.text);
                     Athlete newUser = new Athlete();
+                    newUser.setAthleteEmail(eController.text);
+                    newUser.setAthleteDName(newUser.displayName);
                     newUser.setId(saveAthlete(newUser));
 
                     Navigator.of(context).pushReplacement(MaterialPageRoute(

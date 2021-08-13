@@ -95,6 +95,10 @@ class WelcomeScreen extends StatelessWidget {
                       // Find a way to pass athlete with user data
                       if (user != null) {
                         Athlete newAthlete = new Athlete();
+                        newAthlete.setAthleteEmail(user.email);
+                        newAthlete.setAthleteDName(user.displayName);
+                        newAthlete.setId(saveAthlete(newAthlete));
+
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => HomeScreen(newAthlete)));
                       }

@@ -9,6 +9,11 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  bool _isPlayer = false;
+  bool _isCoach = false;
+  bool _isAdmin = false;
+  bool _isVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,9 +117,24 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: 150,
-                    decoration: BoxDecoration(color: Colors.green[900]),
+                    decoration: BoxDecoration(color: Colors.green[800]),
                   ),
                 ],
+              ),
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green[700]),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)))),
+              onPressed: () {},
+              child: Padding(
+                padding: EdgeInsets.only(top: 1),
+                child: Text(
+                  "Issue Grid Challenge",
+                  style: TextStyle(
+                      fontSize: 15, color: Colors.white, letterSpacing: 1),
+                ),
               ),
             ),
             ElevatedButton(
@@ -141,7 +161,7 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 20,
             ),
             Expanded(
               child: Container(
@@ -211,6 +231,95 @@ class _DashboardState extends State<Dashboard> {
                       color: Colors.black,
                       indent: 0,
                       endIndent: 100,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Text(
+                              'Player',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            Text(
+                              'Coach',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            Text(
+                              'Admin',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                          width: 20,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Switch(
+                              value: _isPlayer,
+                              onChanged: (value) {
+                                setState(() {
+                                  _isPlayer = value;
+                                });
+                              },
+                              activeTrackColor: Colors.lightGreenAccent,
+                              activeColor: Colors.green,
+                            ),
+                            Switch(
+                              value: _isCoach,
+                              onChanged: (value) {
+                                setState(() {
+                                  _isCoach = value;
+                                });
+                              },
+                              activeTrackColor: Colors.lightGreenAccent,
+                              activeColor: Colors.green,
+                            ),
+                            Switch(
+                              value: _isAdmin,
+                              onChanged: (value) {
+                                setState(() {
+                                  _isAdmin = value;
+                                });
+                              },
+                              activeTrackColor: Colors.lightGreenAccent,
+                              activeColor: Colors.green,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      height: 20,
+                      thickness: 1,
+                      color: Colors.black,
+                      indent: 0,
+                      endIndent: 100,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Allow profile to be visible',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Switch(
+                          value: _isVisible,
+                          onChanged: (value) {
+                            setState(() {
+                              _isVisible = value;
+                            });
+                          },
+                          activeTrackColor: Colors.lightGreenAccent,
+                          activeColor: Colors.green,
+                        ),
+                      ],
                     )
                   ],
                 ),
