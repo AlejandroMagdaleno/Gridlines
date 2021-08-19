@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:gridlines/database.dart';
 
 class Athlete {
   String fName = "";
@@ -22,7 +23,12 @@ class Athlete {
     this.email = email;
   }
 
-  Athlete() {}
+  Athlete createGoogleAthlete(User user) {
+    Athlete newAthlete = new Athlete();
+    newAthlete.setAthleteEmail(user.email);
+    newAthlete.setAthleteDName(user.displayName);
+    newAthlete.setId(saveAthlete(newAthlete));
+  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -32,4 +38,15 @@ class Athlete {
       'email': this.email,
     };
   }
+}
+
+Athlete createAthlete(record) {
+  Map<String, dynamic> attributes = {
+    'email': '',
+  };
+
+  record.forEach((key, value) => {attributes[key] = value});
+  Athlete athlete = new Athlete();
+  athlete.setAthleteEmail(attributes['email']);
+  return athlete;
 }

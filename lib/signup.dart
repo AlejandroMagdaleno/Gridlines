@@ -18,6 +18,10 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController fController = TextEditingController();
   final TextEditingController lController = TextEditingController();
   final TextEditingController eController = TextEditingController();
+  final TextEditingController sController = TextEditingController();
+  final TextEditingController cController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,87 +52,133 @@ class _SignUpState extends State<SignUp> {
                       color: Colors.white),
                 ),
               ),
-              Container(
-                  padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextField(
-                    controller: pController,
-                    decoration: InputDecoration(
-                        labelText: "Password",
-                        labelStyle:
-                            TextStyle(fontFamily: 'Monteserrat', fontSize: 18)),
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 350,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              labelText: "Password",
+                              labelStyle:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
+                          controller: pController,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.length < 6) {
+                              return 'Password minimum 6 characters';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 350,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              labelText: "First name",
+                              labelStyle:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
+                          controller: fController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return null;
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 350,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              labelText: "Last name",
+                              labelStyle:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
+                          controller: lController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return null;
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 350,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              labelText: "Email",
+                              labelStyle:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
+                          controller: eController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return null;
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 350,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              labelText: "State",
+                              labelStyle:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
+                          controller: sController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return null;
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 350,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              labelText: "Country",
+                              labelStyle:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
+                          controller: cController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return null;
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: ElevatedButton(
+                          child: Text("Create account"),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              Authentication auth = new Authentication();
+                              auth.signUp(
+                                  email: eController.text,
+                                  password: pController.text);
+                              Athlete newUser = new Athlete();
+                              newUser.setAthleteEmail(eController.text);
+                              newUser.setAthleteDName(newUser.displayName);
+                              newUser.setId(saveAthlete(newUser));
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          HomeScreen(newUser)));
+                            }
+                          },
+                        ),
+                      ),
+                    ],
                   )),
-              Container(
-                  padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextFormField(
-                    controller: fController,
-                    decoration: InputDecoration(
-                        labelText: "First Name",
-                        labelStyle:
-                            TextStyle(fontFamily: 'Monteserrat', fontSize: 18)),
-                  )),
-              Container(
-                  padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextFormField(
-                    controller: lController,
-                    decoration: InputDecoration(
-                        labelText: "Last name",
-                        labelStyle:
-                            TextStyle(fontFamily: 'Monteserrat', fontSize: 18)),
-                  )),
-              Container(
-                  padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextFormField(
-                    controller: eController,
-                    decoration: InputDecoration(
-                        labelText: "Email",
-                        labelStyle:
-                            TextStyle(fontFamily: 'Monteserrat', fontSize: 18)),
-                  )),
-              Container(
-                  padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: "State",
-                        labelStyle:
-                            TextStyle(fontFamily: 'Monteserrat', fontSize: 18)),
-                  )),
-              Container(
-                  padding: EdgeInsets.only(top: height, left: 20, right: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        labelText: "Country",
-                        labelStyle:
-                            TextStyle(fontFamily: 'Monteserrat', fontSize: 18)),
-                  )),
-              SizedBox(height: 45),
-              Container(
-                child: TextButton(
-                  child: Text(
-                    'Create Account',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    Authentication auth = new Authentication();
-                    auth.signUp(
-                        email: eController.text, password: pController.text);
-                    Athlete newUser = new Athlete();
-                    newUser.setAthleteEmail(eController.text);
-                    newUser.setAthleteDName(newUser.displayName);
-                    newUser.setId(saveAthlete(newUser));
-
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => HomeScreen(newUser)));
-                  },
-                  style: ButtonStyle(
-                      side: MaterialStateProperty.all(
-                          BorderSide(width: 2, color: Colors.green.shade900)),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 50)),
-                      textStyle:
-                          MaterialStateProperty.all(TextStyle(fontSize: 20))),
-                ),
-              )
             ],
           ),
         ));
