@@ -1,15 +1,10 @@
-import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
-import 'package:gridlines/dashboard.dart';
+import 'package:gridlines/Screens/dashboard.dart';
+import 'package:gridlines/Screens/myTeams.dart';
 
 class HomeScreen extends StatefulWidget {
   Athlete? athlete;
-  HomeScreen(Athlete athlete) {
-    this.athlete = athlete;
-  }
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,10 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     List<Widget> _pages = <Widget>[
       Dashboard(),
-      Icon(
-        Icons.group,
-        size: 150,
-      ),
+      MyTeams(),
       Icon(
         Icons.grid_3x3,
         size: 150,

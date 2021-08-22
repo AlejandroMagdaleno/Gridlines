@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/auth.dart';
 import 'package:gridlines/database.dart';
-import 'package:gridlines/home.dart';
-import 'package:gridlines/welcomeScreen.dart';
+import 'package:gridlines/Screens/home.dart';
+import 'package:gridlines/Screens/welcomeScreen.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -171,8 +171,7 @@ class _SignUpState extends State<SignUp> {
                               newUser.setId(saveAthlete(newUser));
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomeScreen(newUser)));
+                                      builder: (context) => HomeScreen()));
                             }
                           },
                         ),

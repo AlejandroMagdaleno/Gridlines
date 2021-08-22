@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gridlines/home.dart';
-import 'package:gridlines/signup.dart';
-import 'welcomeScreen.dart';
+import 'package:gridlines/Screens/home.dart';
+import 'package:gridlines/Screens/signup.dart';
+import 'Screens/welcomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {

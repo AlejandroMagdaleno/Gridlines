@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gridlines/home.dart';
-import 'package:gridlines/signup.dart';
-import 'database.dart';
-import 'Athlete.dart';
+import 'package:gridlines/Screens/home.dart';
+import 'package:gridlines/Screens/signup.dart';
+import '../database.dart';
+import '../Athlete.dart';
 
-import 'auth.dart';
+import '../auth.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -96,8 +96,12 @@ class WelcomeScreen extends StatelessWidget {
                       // take the user signed in, and
                       //only create an athlete account if one does not exist
                       if (user != null) {
-                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        //    builder: (context) => HomeScreen()));
+                        Athlete athlete = new Athlete();
+                        athlete.setAthleteEmail(user.email);
+
+                        athlete.setId(saveAthlete(athlete));
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => HomeScreen()));
                       }
                     },
                   )),

@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/auth.dart';
-import 'package:gridlines/welcomeScreen.dart';
+import 'package:gridlines/database.dart';
+import 'package:gridlines/Screens/welcomeScreen.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -42,77 +44,6 @@ class _DashboardState extends State<Dashboard> {
                                       'https://googleflutter.com/sample_image.jpg'),
                                   fit: BoxFit.fill)),
                         ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              'GRIDMASTER CHALLENGER',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1,
-                                  fontSize: 15),
-                            ),
-                            SizedBox(
-                              height: 3,
-                              child: Container(
-                                color: Colors.white,
-                                width: 220,
-                              ),
-                            ),
-                            Text(
-                              'Ranking',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 2,
-                                  fontSize: 15),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Received',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1,
-                                  fontSize: 15),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Issued',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1,
-                                  fontSize: 15),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Open',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1,
-                                  fontSize: 15),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Won',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1,
-                                  fontSize: 15),
-                            ),
-                          ],
-                        )
                       ],
                     ),
                     width: MediaQuery.of(context).size.width,
