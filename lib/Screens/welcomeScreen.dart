@@ -96,10 +96,6 @@ class WelcomeScreen extends StatelessWidget {
                       // take the user signed in, and
                       //only create an athlete account if one does not exist
                       if (user != null) {
-                        Athlete athlete = new Athlete();
-                        athlete.setAthleteEmail(user.email);
-
-                        athlete.setId(saveAthlete(athlete));
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => HomeScreen()));
                       }

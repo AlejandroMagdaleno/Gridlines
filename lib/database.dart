@@ -12,25 +12,36 @@ DatabaseReference saveAthlete(Athlete user) {
   return id;
 }
 
-Future<Athlete> checkForUser(String email) async {
+Future<Athlete?> checkForUser(String email) async {
   DataSnapshot dataSnapshot = await databaseReference.child('Athletes/').once();
-  Athlete newAthlete = new Athlete();
-
+  Athlete athlete = new Athlete();
+  bool _found = false;
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((key, value) {
       Athlete existingUser = createAthlete(value);
       existingUser.setId(databaseReference.child('Athletes/' + key));
-      debugPrint(existingUser.email! + " , " + email);
+
       if (existingUser.email == email) {
         debugPrint(existingUser.email);
-        debugPrint("that shit do be existing -o_o-");
+        athlete = existingUser;
+        _found = true;
       } else {
-        debugPrint("that shit doesn't exist");
-        debugPrint(existingUser.email);
+        debugPrint("No user exists under the email: " + email);
+        _found = false;
       }
     });
   }
 
-  // If we make it here, we found no athlete with existing email
-  return newAthlete;
+  if (_found == false) {
+    athlete.setAthleteEmail(email);
+    athlete.setId(saveAthlete(athlete));
+    return athlete;
+  } else {
+    debugPrint("Successfully returned user email: " + athlete.email.toString());
+    return athlete;
+  }
+
+// For google sign in, we check for user by passing in user . email and return that athlete or create new one
+// For logging in with email, we check for user with matching email and return that athlete or create  new one
+// If we make it here, we found no athlete with existing email
 }
