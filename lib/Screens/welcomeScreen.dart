@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/Screens/home.dart';
 import 'package:gridlines/Screens/signup.dart';
+import 'package:gridlines/Screens/verificationPage.dart';
 import '../database.dart';
 import '../Athlete.dart';
 
@@ -97,7 +98,8 @@ class WelcomeScreen extends StatelessWidget {
                       //only create an athlete account if one does not exist
                       if (user != null) {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => HomeScreen()));
+                            builder: (context) =>
+                                verificationPage(user.email!)));
                       }
                     },
                   )),

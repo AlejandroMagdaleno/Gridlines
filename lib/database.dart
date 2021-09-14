@@ -12,36 +12,57 @@ DatabaseReference saveAthlete(Athlete user) {
   return id;
 }
 
-Future<Athlete?> checkForUser(String email) async {
+Future<void> checkForUser(String email) async {
   DataSnapshot dataSnapshot = await databaseReference.child('Athletes/').once();
-  Athlete athlete = new Athlete();
   bool _found = false;
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((key, value) {
+      Athlete existingUser = createAthlete(value);
+      existingUser.setId(databaseReference.child('Athletes/' + key));
+      if (_found == false) {
+        if (existingUser.email == email) {
+          debugPrint("found email matching");
+          _found = true;
+        } else {
+          debugPrint("No user exists under the email: " + email);
+        }
+      }
+    });
+  } else {
+    Athlete newUser = new Athlete();
+    newUser.setAthleteEmail(email);
+    newUser.setId(saveAthlete(newUser));
+  }
+
+// For google sign in, we check for user by passing in user . email and return thatS athlete or create new one
+// For logging in with email, we check for user with matching email and return that athlete or create  new one
+// If we make it here, we found no athlete with existing email
+}
+
+Future<String?> getAthleteData(String email) async {
+  DataSnapshot dataSnapshot = await databaseReference.child('Athletes/').once();
+  String dbRef = "asdf";
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((key, value) {
       Athlete existingUser = createAthlete(value);
       existingUser.setId(databaseReference.child('Athletes/' + key));
 
       if (existingUser.email == email) {
-        debugPrint(existingUser.email);
-        athlete = existingUser;
-        _found = true;
-      } else {
-        debugPrint("No user exists under the email: " + email);
-        _found = false;
+        dbRef = ('Athletes/' + key);
       }
     });
   }
-
-  if (_found == false) {
-    athlete.setAthleteEmail(email);
-    athlete.setId(saveAthlete(athlete));
-    return athlete;
-  } else {
-    debugPrint("Successfully returned user email: " + athlete.email.toString());
-    return athlete;
-  }
+  return dbRef;
+  // we need to run this future without a safety check in the return
+  //probably wont need to return a database reference since we can access the update
+  //method through  databaseReference.child('Athletes/' + key).update. Manually insert
+  //the id string
+}
 
 // For google sign in, we check for user by passing in user . email and return that athlete or create new one
 // For logging in with email, we check for user with matching email and return that athlete or create  new one
 // If we make it here, we found no athlete with existing email
+
+void updateAthlete(Athlete athlete, DatabaseReference _id) {
+  _id.update(athlete.toJson());
 }

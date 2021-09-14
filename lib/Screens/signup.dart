@@ -167,11 +167,11 @@ class _SignUpState extends State<SignUp> {
                                   password: pController.text);
                               Athlete newUser = new Athlete();
                               newUser.setAthleteEmail(eController.text);
-                              newUser.setAthleteDName(newUser.displayName);
                               newUser.setId(saveAthlete(newUser));
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
+                                      builder: (context) =>
+                                          HomeScreen(eController.text)));
                             }
                           },
                         ),

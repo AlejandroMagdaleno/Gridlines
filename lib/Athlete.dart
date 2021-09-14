@@ -1,23 +1,34 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:gridlines/database.dart';
 
 class Athlete {
   String fName = "";
   String lName = "";
   String? displayName;
   String? email;
+
   DatabaseReference? _id;
+
+  DatabaseReference getID(Athlete athlete) {
+    return athlete._id!;
+  }
+
+  Athlete? getAthlete(String email) {
+    getAthleteData(email);
+  }
+
+  void update() {
+    updateAthlete(this, this._id!);
+  }
 
   void setId(DatabaseReference id) {
     this._id = id;
   }
 
-  void setAthleteDName(String? name) {
-    this.displayName = name;
-  }
-
   void setAthleteEmail(String? email) {
     // when a google user is created. pass in the email to the new athlete object made to store the email locally.
-    this.email = email;
+    this.email = email!;
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +51,9 @@ Athlete createAthlete(record) {
 
   record.forEach((key, value) => {attributes[key] = value});
   Athlete athlete = new Athlete();
+  //athlete.displayName = attributes['display_name'];
+  //athlete.fName = attributes['f_name'];
+  //athlete.lName = attributes['l_name'];
   athlete.setAthleteEmail(attributes['email']);
   return athlete;
 }

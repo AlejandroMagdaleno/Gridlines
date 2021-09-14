@@ -5,8 +5,8 @@ import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/database.dart';
 
 class MyTeams extends StatefulWidget {
-  const MyTeams({Key? key}) : super(key: key);
-
+  String email = "";
+  MyTeams(this.email);
   @override
   _MyTeamsState createState() => _MyTeamsState();
 }
@@ -15,21 +15,17 @@ class _MyTeamsState extends State<MyTeams> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FutureBuilder(
-        future: checkForUser("alxmg179@gmail.com"),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (snapshot.connectionState == ConnectionState.done) {
-            return Text('Data: ${snapshot.data.toString()}');
-          } else if (snapshot.hasData) {
-            return Text(snapshot.data.toString());
-          } else
-            return Text('asdf');
-
-          // need to print snapshot data
-        },
-      ),
-    );
+        child: FutureBuilder(
+      future: getAthleteData(widget.email),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          return Text(snapshot.data.toString());
+        } else {
+          return Text("data");
+        }
+      },
+    ));
   }
 }
