@@ -1,12 +1,11 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:gridlines/database.dart';
 
 class Athlete {
   String fName = "";
   String lName = "";
-  String? displayName;
-  String? email;
+  String displayName = "";
+  String email = "";
 
   DatabaseReference? _id;
 
@@ -14,12 +13,8 @@ class Athlete {
     return athlete._id!;
   }
 
-  Athlete? getAthlete(String email) {
-    getAthleteData(email);
-  }
-
   void update() {
-    updateAthlete(this, this._id!);
+    updateAthleteData(email);
   }
 
   void setId(DatabaseReference id) {

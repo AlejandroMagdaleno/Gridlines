@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
+import 'package:gridlines/Screens/verificationPage.dart';
 import 'package:gridlines/auth.dart';
 import 'package:gridlines/database.dart';
 import 'package:gridlines/Screens/home.dart';
-import 'package:gridlines/Screens/welcomeScreen.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -171,7 +170,7 @@ class _SignUpState extends State<SignUp> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          HomeScreen(eController.text)));
+                                          verificationPage(eController.text)));
                             }
                           },
                         ),

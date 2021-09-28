@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gridlines/Screens/home.dart';
-import 'package:gridlines/Screens/signup.dart';
 import 'Screens/welcomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 

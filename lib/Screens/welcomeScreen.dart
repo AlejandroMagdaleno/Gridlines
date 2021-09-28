@@ -1,13 +1,9 @@
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gridlines/Screens/home.dart';
 import 'package:gridlines/Screens/signup.dart';
 import 'package:gridlines/Screens/verificationPage.dart';
-import '../database.dart';
-import '../Athlete.dart';
 
 import '../auth.dart';
 

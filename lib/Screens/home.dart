@@ -1,32 +1,32 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/Screens/dashboard.dart';
+import 'package:gridlines/Screens/myPlays.dart';
 import 'package:gridlines/Screens/myTeams.dart';
+import 'package:gridlines/database.dart';
 
 class HomeScreen extends StatefulWidget {
-  String email = "";
-  HomeScreen(this.email);
+  Athlete user = new Athlete();
+  HomeScreen(Athlete athlete) {
+    this.user = athlete;
+  }
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     List<Widget> _pages = <Widget>[
-      Dashboard(),
-      MyTeams(widget.email),
+      Dashboard(widget.user),
+      MyTeams(),
       Icon(
         Icons.grid_3x3,
         size: 150,
       ),
-      Icon(
-        Icons.phone_android_rounded,
-        size: 150,
-      ),
+      MyPlays(),
       Icon(
         Icons.book_rounded,
         size: 150,

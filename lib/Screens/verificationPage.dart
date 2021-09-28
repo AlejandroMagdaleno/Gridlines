@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/Screens/home.dart';
+import 'package:gridlines/Screens/splash.dart';
 import 'package:gridlines/Screens/welcomeScreen.dart';
 import 'package:gridlines/database.dart';
 
@@ -12,22 +13,24 @@ class verificationPage extends StatefulWidget {
 }
 
 class _verificationPageState extends State<verificationPage> {
+  Athlete athlete = new Athlete();
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FutureBuilder(
+        child: Scaffold(
+      body: FutureBuilder(
         future: checkForUser(widget.email),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           } else if (snapshot.connectionState == ConnectionState.done) {
-            debugPrint("loading screen");
-            return HomeScreen(widget.email);
+            return SplashScreen(widget.email);
           } else {
             return WelcomeScreen();
           }
         },
       ),
-    );
+    ));
   }
 }

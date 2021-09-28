@@ -1,11 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/auth.dart';
-import 'package:gridlines/database.dart';
 import 'package:gridlines/Screens/welcomeScreen.dart';
+import 'package:gridlines/database.dart';
 
 class Dashboard extends StatefulWidget {
+  Athlete user = new Athlete();
+  Dashboard(Athlete athlete) {
+    this.user = athlete;
+    debugPrint(user.email);
+  }
+  List<String> attributes = [];
+
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -132,14 +138,12 @@ class _DashboardState extends State<Dashboard> {
                       endIndent: 100,
                     ),
                     Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'User email',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 18),
-                      ),
-                    ),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          widget.user.email,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 18),
+                        )),
                     Divider(
                       height: 20,
                       thickness: 1,
