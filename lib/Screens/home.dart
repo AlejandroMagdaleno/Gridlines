@@ -3,7 +3,7 @@ import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/Screens/dashboard.dart';
 import 'package:gridlines/Screens/myPlays.dart';
 import 'package:gridlines/Screens/myTeams.dart';
-import 'package:gridlines/database.dart';
+import 'package:gridlines/Screens/playPaks.dart';
 
 class HomeScreen extends StatefulWidget {
   Athlete user = new Athlete();
@@ -22,10 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> _pages = <Widget>[
       Dashboard(widget.user),
       MyTeams(),
-      Icon(
-        Icons.grid_3x3,
-        size: 150,
-      ),
+      PlayPaks_Screen(),
       MyPlays(),
       Icon(
         Icons.book_rounded,
