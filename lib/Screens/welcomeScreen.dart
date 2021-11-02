@@ -2,14 +2,23 @@ import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gridlines/Screens/signup.dart';
 import 'package:gridlines/Screens/verificationPage.dart';
 
 import '../auth.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  TextEditingController eController = new TextEditingController();
+  TextEditingController pController = new TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,42 +39,90 @@ class WelcomeScreen extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(30, 30, 20, 20),
                 child: Image.asset('images/grid.png')),
             Container(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 20, bottom: 20),
               child: Text(
-                "Sign in",
+                "Sign in form",
                 style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+            Form(
+              key: formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email',
-                        labelStyle:
-                            TextStyle(fontFamily: 'Montserrat', fontSize: 18)),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          labelText: "Email",
+                          labelStyle:
+                              TextStyle(color: Colors.white, fontSize: 18),
+                          border: OutlineInputBorder()),
+                      controller: eController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Empty field';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          labelText: "Password",
+                          labelStyle:
+                              TextStyle(color: Colors.white, fontSize: 18),
+                          border: OutlineInputBorder()),
+                      controller: pController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Empty field';
+                        }
+                        return null;
+                      },
+                    ),
                   )
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
-                        labelStyle:
-                            TextStyle(fontFamily: 'Montserrat', fontSize: 18)),
-                  )
-                ],
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)))),
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    Authentication auth = new Authentication();
+                    auth.signIn(
+                        email: eController.text,
+                        password: pController.text,
+                        context: context);
+
+                    /*Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) =>
+                            verificationPage(eController.text))); */
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(top: 8, bottom: 8),
+                  child: Text(
+                    "Sign in",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 2),
+                  ),
+                ),
               ),
             ),
             Container(
@@ -80,25 +137,22 @@ class WelcomeScreen extends StatelessWidget {
                   onPressed: () {},
                 )),
             Container(
-              child: SizedBox(
-                  height: 200,
-                  width: 150,
-                  child: IconButton(
-                    iconSize: 100,
-                    padding: EdgeInsets.all(0.0),
-                    icon: Image.asset('images/signwithgoogle.png'),
-                    onPressed: () async {
-                      User? user = await Authentication.signInWithGoogle(
-                          context: context);
-                      // take the user signed in, and
-                      //only create an athlete account if one does not exist
-                      if (user != null) {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) =>
-                                verificationPage(user.email!)));
-                      }
-                    },
-                  )),
+              // fix sizing issue with the button
+              child: IconButton(
+                iconSize: 100,
+                padding: EdgeInsets.all(0.0),
+                icon: Image.asset('images/signwithgoogle.png'),
+                onPressed: () async {
+                  User? user =
+                      await Authentication.signInWithGoogle(context: context);
+                  // take the user signed in, and
+                  //only create an athlete account if one does not exist
+                  if (user != null) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => verificationPage(user.email!)));
+                  }
+                },
+              ),
             ),
             Container(
                 padding: EdgeInsets.only(top: 0),

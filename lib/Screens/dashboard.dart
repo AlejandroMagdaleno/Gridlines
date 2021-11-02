@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/auth.dart';
 import 'package:gridlines/Screens/welcomeScreen.dart';
-import 'package:gridlines/database.dart';
 
 class Dashboard extends StatefulWidget {
   Athlete user = new Athlete();

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:gridlines/Screens/verificationPage.dart';
 import 'package:gridlines/Screens/welcomeScreen.dart';
 
 class Authentication {
@@ -116,12 +117,19 @@ class Authentication {
     }
   }
 
-  Future signIn({required String email, required String password}) async {
+  Future signIn(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      debugPrint("signed in");
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => verificationPage(email)));
       return null;
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      ScaffoldMessenger.of(context).showSnackBar(
+          Authentication.customSnackBar(content: "Wrong email or password"));
     }
   }
 }

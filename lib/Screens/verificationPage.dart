@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
-import 'package:gridlines/Screens/home.dart';
 import 'package:gridlines/Screens/splash.dart';
 import 'package:gridlines/Screens/welcomeScreen.dart';
 import 'package:gridlines/database.dart';
