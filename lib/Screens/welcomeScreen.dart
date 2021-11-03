@@ -106,10 +106,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         email: eController.text,
                         password: pController.text,
                         context: context);
-
-                    /*Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) =>
-                            verificationPage(eController.text))); */
                   }
                 },
                 child: Padding(
