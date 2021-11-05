@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gridlines/storage.dart';
 
 class PlayPaks_Screen extends StatefulWidget {
   const PlayPaks_Screen({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class PlayPaks_Screen extends StatefulWidget {
 
 class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
   List<bool> _isSelected = [true, false, false];
-
+  int size = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,20 +59,14 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
           ),
           Expanded(
             child: ListView.separated(
-                itemBuilder: (_, index) => Container(
-                      width: 250,
-                      height: 250,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: NetworkImage(
-                            'https://media.istockphoto.com/vectors/football-play-coaching-diagram-vector-id1199879553?k=20&m=1199879553&s=612x612&w=0&h=CDCkOY-OqfNzAkrYNCcp0dwZK4RQUhVlAmAWTrYZ9Eo='),
-                      )),
-                    ),
+                itemBuilder: (_, index) => getImage(index,
+                    _isSelected), // get urls, return list of urls.  size = list.length
                 separatorBuilder: (_, n) => Divider(
                       height: 20,
                     ),
+                cacheExtent: 500,
                 scrollDirection: Axis.vertical,
-                itemCount: 20),
+                itemCount: 4),
           )
         ],
       ),
