@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gridlines/Custom_Widgets/pak.dart';
 
 class PlayPaks_Screen extends StatefulWidget {
   const PlayPaks_Screen({Key? key}) : super(key: key);
@@ -58,8 +59,8 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
           ),
           Expanded(
             child: ListView.separated(
-                itemBuilder: (_, index) => Text(
-                    'data'), // get urls, return list of urls.  size = list.length
+                itemBuilder: (_, index) =>
+                    PlayPak(), // get urls, return list of urls.  size = list.length
                 separatorBuilder: (_, n) => Divider(
                       height: 20,
                     ),

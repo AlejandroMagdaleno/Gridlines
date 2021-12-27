@@ -1,0 +1,10 @@
+{
+    "plays": [
+        {
+            "id": "01", 
+            "type": "offense", 
+            "name": "attack_01", 
+            "url": "https://firebasestorage.googleapis.com/v0/b/gridlines-f0d83.appspot.com/o/Plays%2FOffense%2Foffense_play2.png?alt=media&token=c051fbe9-6a33-4920-b6e6-872705d26825"
+        }
+    ]
+}
