@@ -67,3 +67,15 @@ Future<Athlete> getAthlete(String email) async {
   }
   return athlete;
 }
+
+Future<List<String>> getPlayPakFetched() async {
+  List<String> result = [];
+  DataSnapshot dataSnapshot =
+      await databaseReference.child('Plays/plays/').once();
+
+  dataSnapshot.value.forEach((value) {
+    result.add(value['url']);
+  });
+
+  return result;
+}

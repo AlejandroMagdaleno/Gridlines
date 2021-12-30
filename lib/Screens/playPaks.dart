@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:gridlines/Custom_Widgets/pak.dart';
 
 class PlayPaks_Screen extends StatefulWidget {
-  const PlayPaks_Screen({Key? key}) : super(key: key);
+  List<String> pakUrls = [];
+  PlayPaks_Screen(List<String> urls) {
+    pakUrls = urls;
+  }
 
   @override
   _PlayPaks_ScreenState createState() => _PlayPaks_ScreenState();
 }
 
 class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
-  List<bool> _isSelected = [true, false, false];
   int size = 0;
   @override
   Widget build(BuildContext context) {
@@ -21,37 +22,7 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
             padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 6,
                 MediaQuery.of(context).size.height / 12, 0, 0),
             child: Row(
-              children: <Widget>[
-                ToggleButtons(
-                  borderRadius: BorderRadius.circular(10),
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: Text("All Paks"),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: Text("Offense"),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: Text("Defense"),
-                    )
-                  ],
-                  isSelected: (_isSelected),
-                  onPressed: (int newIndex) {
-                    setState(() {
-                      for (int i = 0; i < _isSelected.length; i++) {
-                        if (i == newIndex) {
-                          _isSelected[i] = true;
-                        } else {
-                          _isSelected[i] = false;
-                        }
-                      }
-                    });
-                  },
-                )
-              ],
+              children: <Widget>[],
             ),
           ),
           SizedBox(
@@ -60,13 +31,13 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
           Expanded(
             child: ListView.separated(
                 itemBuilder: (_, index) =>
-                    PlayPak(), // get urls, return list of urls.  size = list.length
+                    PlayPak(widget.pakUrls.elementAt(index)),
                 separatorBuilder: (_, n) => Divider(
                       height: 20,
                     ),
                 cacheExtent: 500,
                 scrollDirection: Axis.vertical,
-                itemCount: 4),
+                itemCount: widget.pakUrls.length),
           )
         ],
       ),

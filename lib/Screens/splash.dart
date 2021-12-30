@@ -11,8 +11,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  List<String> pakUrls = []; // replicate
+
+  void fillUrls() {
+    getPlayPakFetched().then((value) {
+      pakUrls = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    fillUrls();
     return Scaffold(
       body: Center(
         child: Column(
@@ -25,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 onPressed: () {
                   getAthlete(widget.email).then((value) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => HomeScreen(value)));
+                        builder: (context) => HomeScreen(value, pakUrls)));
                   });
                 },
                 child: Text("Click to continue"))

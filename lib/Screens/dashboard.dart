@@ -7,7 +7,6 @@ class Dashboard extends StatefulWidget {
   Athlete user = new Athlete();
   Dashboard(Athlete athlete) {
     this.user = athlete;
-    debugPrint(user.email);
   }
   List<String> attributes = [];
 

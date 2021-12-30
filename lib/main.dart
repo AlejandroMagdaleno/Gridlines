@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
               print("Error");
               return (Text('something went wrong'));
             } else if (snapshot.hasData) {
-              print('snapshot has data, firebase went through');
               return WelcomeScreen();
             } else {
               return Center(

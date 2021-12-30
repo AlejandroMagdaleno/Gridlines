@@ -7,8 +7,11 @@ import 'package:gridlines/Screens/playPaks.dart';
 
 class HomeScreen extends StatefulWidget {
   Athlete user = new Athlete();
-  HomeScreen(Athlete athlete) {
+  List<String> urls = [];
+
+  HomeScreen(Athlete athlete, List<String> urlsList) {
     this.user = athlete;
+    urls = urlsList;
   }
 
   @override
@@ -22,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> _pages = <Widget>[
       Dashboard(widget.user),
       MyTeams(),
-      PlayPaks_Screen(),
+      PlayPaks_Screen(widget.urls),
       MyPlays(),
       Icon(
         Icons.book_rounded,
