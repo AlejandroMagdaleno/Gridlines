@@ -19,8 +19,13 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
       body: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 6,
-                MediaQuery.of(context).size.height / 12, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
+            child: Text(
+              "Current plays",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+            ),
+          ),
+          Container(
             child: Row(
               children: <Widget>[],
             ),
@@ -33,7 +38,8 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
                 itemBuilder: (_, index) =>
                     PlayPak(widget.pakUrls.elementAt(index)),
                 separatorBuilder: (_, n) => Divider(
-                      height: 20,
+                      color: Colors.grey,
+                      thickness: 1,
                     ),
                 cacheExtent: 500,
                 scrollDirection: Axis.vertical,
