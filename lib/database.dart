@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gridlines/Custom_Widgets/pak.dart';
 
 import 'Athlete.dart';
 
@@ -78,4 +81,18 @@ Future<List<String>> getPlayPakFetched() async {
   });
 
   return result;
+}
+
+Future<List<Pak>> getPlayPak() async {
+  List<Pak> paks = [];
+  DataSnapshot dataSnapshot =
+      await databaseReference.child('Plays/plays/').once();
+
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((value) {
+      Pak pak = new Pak();
+      paks.add(pak.createPak(value));
+    });
+  }
+  return paks;
 }

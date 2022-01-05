@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
 
-class PlayPak extends StatefulWidget {
+class Pak {
+  String id = '';
+  String name = '';
+  String type = '';
   String url = '';
 
-  PlayPak(String fetchedUrl) {
-    url = fetchedUrl;
+  Pak createPak(record) {
+    Map<String, dynamic> attributes = {
+      'id': '',
+      'name': '',
+      'type': '',
+      'url': '',
+    };
+
+    record.forEach((key, value) => {attributes[key] = value});
+    Pak pak = new Pak();
+    pak.id = attributes['id'];
+    pak.name = attributes['name'];
+    pak.type = attributes['type'];
+    pak.url = attributes['url'];
+
+    return pak;
+  }
+}
+
+class PlayPak extends StatefulWidget {
+  Pak pak = new Pak();
+  PlayPak(Pak playPak) {
+    pak = playPak;
   }
   @override
   _PlayPakState createState() => _PlayPakState();
@@ -17,9 +41,9 @@ class _PlayPakState extends State<PlayPak> {
       child: Row(
         children: <Widget>[
           Image.network(
-            widget.url,
-            width: 100,
-            height: 100,
+            widget.pak.url,
+            width: 150,
+            height: 150,
           ),
           SizedBox(
             width: 40,
@@ -28,12 +52,11 @@ class _PlayPakState extends State<PlayPak> {
             child: Column(children: <Widget>[
               Container(
                 child: Text(
-                  'Play pak 1',
+                  widget.pak.name,
                 ),
               ),
               Container(
-                child: Text(
-                    'Lorem Ipsum issince the 1500s, when an unng Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum'),
+                child: Text(widget.pak.type),
               ),
               Container(
                 child: ElevatedButton(
