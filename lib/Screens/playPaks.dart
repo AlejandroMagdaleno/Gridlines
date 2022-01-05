@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gridlines/Custom_Widgets/pak.dart';
 
 class PlayPaks_Screen extends StatefulWidget {
-  List<String> pakUrls = [];
-  PlayPaks_Screen(List<String> urls) {
-    pakUrls = urls;
+  List<Pak> paks = [];
+  PlayPaks_Screen(List<Pak> currentPaks) {
+    paks = currentPaks;
   }
 
   @override
@@ -36,14 +36,14 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
           Expanded(
             child: ListView.separated(
                 itemBuilder: (_, index) =>
-                    PlayPak(widget.pakUrls.elementAt(index)),
+                    PlayPak(widget.paks.elementAt(index)),
                 separatorBuilder: (_, n) => Divider(
                       color: Colors.grey,
                       thickness: 1,
                     ),
                 cacheExtent: 500,
                 scrollDirection: Axis.vertical,
-                itemCount: widget.pakUrls.length),
+                itemCount: widget.paks.length),
           )
         ],
       ),

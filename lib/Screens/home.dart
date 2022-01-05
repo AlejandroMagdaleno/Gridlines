@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
+import 'package:gridlines/Custom_Widgets/pak.dart';
 import 'package:gridlines/Screens/dashboard.dart';
 import 'package:gridlines/Screens/myPlays.dart';
 import 'package:gridlines/Screens/myTeams.dart';
@@ -7,11 +8,11 @@ import 'package:gridlines/Screens/playPaks.dart';
 
 class HomeScreen extends StatefulWidget {
   Athlete user = new Athlete();
-  List<String> urls = [];
+  List<Pak> paks = [];
 
-  HomeScreen(Athlete athlete, List<String> urlsList) {
+  HomeScreen(Athlete athlete, List<Pak> currentPaks) {
     this.user = athlete;
-    urls = urlsList;
+    paks = currentPaks;
   }
 
   @override
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> _pages = <Widget>[
       Dashboard(widget.user),
       MyTeams(),
-      PlayPaks_Screen(widget.urls),
+      PlayPaks_Screen(widget.paks),
       MyPlays(),
       Icon(
         Icons.book_rounded,

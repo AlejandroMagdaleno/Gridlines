@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gridlines/Custom_Widgets/pak.dart';
 import 'package:gridlines/Screens/home.dart';
 import 'package:gridlines/database.dart';
 
@@ -12,10 +13,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   List<String> pakUrls = []; // replicate
-
+  List<Pak> currentPaks = [];
   void fillUrls() {
     getPlayPakFetched().then((value) {
       pakUrls = value;
+    });
+    getPlayPak().then((value) {
+      currentPaks = value;
+      debugPrint(currentPaks[1].url);
     });
   }
 
@@ -34,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 onPressed: () {
                   getAthlete(widget.email).then((value) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => HomeScreen(value, pakUrls)));
+                        builder: (context) => HomeScreen(value, currentPaks)));
                   });
                 },
                 child: Text("Click to continue"))
