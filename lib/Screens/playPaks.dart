@@ -16,14 +16,17 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
-            child: Text(
-              "Current plays",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-            ),
+            child: Image.asset('images/grid.png'),
+            height: 150,
+          ),
+          Text(
+            "Current Paks",
+            style: TextStyle(
+                fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
           ),
           Container(
             child: Row(
@@ -39,7 +42,6 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
                     PlayPak(widget.paks.elementAt(index)),
                 separatorBuilder: (_, n) => Divider(
                       color: Colors.grey,
-                      thickness: 1,
                     ),
                 cacheExtent: 500,
                 scrollDirection: Axis.vertical,
