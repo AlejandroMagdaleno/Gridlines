@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gridlines/Custom_Widgets/pak.dart';
+import 'package:gridlines/pak.dart';
 import 'package:gridlines/Screens/home.dart';
 import 'package:gridlines/database.dart';
 
@@ -20,7 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     getPlayPak().then((value) {
       currentPaks = value;
-      debugPrint(currentPaks[1].url);
     });
   }
 

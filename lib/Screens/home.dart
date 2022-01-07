@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
-import 'package:gridlines/Custom_Widgets/pak.dart';
+import 'package:gridlines/pak.dart';
 import 'package:gridlines/Screens/dashboard.dart';
 import 'package:gridlines/Screens/myPlays.dart';
 import 'package:gridlines/Screens/myTeams.dart';
