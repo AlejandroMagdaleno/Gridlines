@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/Custom_Widgets/PlayPak.dart';
 import 'package:gridlines/pak.dart';
 
 class PlayPaks_Screen extends StatefulWidget {
   List<Pak> paks = [];
-  PlayPaks_Screen(List<Pak> currentPaks) {
+  Athlete currentAthlete = new Athlete();
+  PlayPaks_Screen(List<Pak> currentPaks, Athlete a) {
     paks = currentPaks;
+    currentAthlete = a;
   }
 
   @override
@@ -39,8 +42,8 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
           ),
           Expanded(
             child: ListView.separated(
-                itemBuilder: (_, index) =>
-                    PlayPak(widget.paks.elementAt(index)),
+                itemBuilder: (_, index) => PlayPak(
+                    widget.paks.elementAt(index), widget.currentAthlete),
                 separatorBuilder: (_, n) => Divider(
                       color: Colors.grey,
                     ),

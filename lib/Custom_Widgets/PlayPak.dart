@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gridlines/Athlete.dart';
+import 'package:gridlines/database.dart';
 import 'package:gridlines/pak.dart';
 
 class PlayPak extends StatefulWidget {
   Pak pak = new Pak();
-  PlayPak(Pak playPak) {
+  Athlete currentAthlete = new Athlete();
+
+  PlayPak(Pak playPak, Athlete currentAthlete) {
+    this.currentAthlete = currentAthlete;
     pak = playPak;
   }
   @override
@@ -53,7 +58,9 @@ class _PlayPakState extends State<PlayPak> {
                           MaterialStateProperty.all(Colors.green[450]),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)))),
-                  onPressed: () {},
+                  onPressed: () {
+                    savePurchasedPak(widget.currentAthlete, widget.pak);
+                  },
                   child: Padding(
                     padding: EdgeInsets.only(top: 8, bottom: 8),
                     child: Text(

@@ -12,12 +12,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  List<String> pakUrls = []; // replicate
   List<Pak> currentPaks = [];
   void fillUrls() {
-    getPlayPakFetched().then((value) {
-      pakUrls = value;
-    });
     getPlayPak().then((value) {
       currentPaks = value;
     });

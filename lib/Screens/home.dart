@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> _pages = <Widget>[
       Dashboard(widget.user),
       MyTeams(),
-      PlayPaks_Screen(widget.paks),
+      PlayPaks_Screen(widget.paks, widget.user),
       MyPlays(),
       Icon(
         Icons.book_rounded,

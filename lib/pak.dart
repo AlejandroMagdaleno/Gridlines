@@ -21,4 +21,13 @@ class Pak {
 
     return pak;
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': this.id,
+      'name': this.name,
+      'type': this.type,
+      'url': this.url,
+    };
+  }
 }

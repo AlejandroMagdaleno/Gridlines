@@ -7,10 +7,10 @@ class Athlete {
   String displayName = "";
   String email = "";
 
-  DatabaseReference? _id;
+  DatabaseReference? id;
 
-  DatabaseReference getID(Athlete athlete) {
-    return athlete._id!;
+  DatabaseReference getID() {
+    return this.id!;
   }
 
   void update() {
@@ -18,7 +18,7 @@ class Athlete {
   }
 
   void setId(DatabaseReference id) {
-    this._id = id;
+    this.id = id;
   }
 
   void setAthleteEmail(String? email) {

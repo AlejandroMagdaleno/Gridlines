@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gridlines/pak.dart';
@@ -14,9 +12,19 @@ DatabaseReference saveAthlete(Athlete user) {
   return id;
 }
 
+void savePurchasedPak(Athlete currentUser, Pak chosenPak) {
+  var id = databaseReference
+      .child('Athletes/' + currentUser.getID().key + '/Paks/')
+      .push();
+
+  id.update(chosenPak.toJson());
+}
+
 Future<void> checkForUser(String email) async {
   DataSnapshot dataSnapshot = await databaseReference.child('Athletes/').once();
   bool _found = false;
+
+  debugPrint('Checking for user $email');
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((key, value) {
       Athlete existingUser = createAthlete(value);
@@ -26,6 +34,9 @@ Future<void> checkForUser(String email) async {
           _found = true;
         } else {
           debugPrint("No user exists under the email: " + email);
+          Athlete newUser = new Athlete();
+          newUser.setAthleteEmail(email);
+          newUser.setId(saveAthlete(newUser));
         }
       }
     });
@@ -48,7 +59,7 @@ Future<void> updateAthleteData(String email) async {
       existingUser.setId(databaseReference.child('Athletes/' + key));
 
       if (existingUser.email == email) {
-        existingUser.getID(existingUser).update(existingUser.toJson());
+        existingUser.getID().update(existingUser.toJson());
       }
     });
   }
@@ -69,18 +80,6 @@ Future<Athlete> getAthlete(String email) async {
     });
   }
   return athlete;
-}
-
-Future<List<String>> getPlayPakFetched() async {
-  List<String> result = [];
-  DataSnapshot dataSnapshot =
-      await databaseReference.child('Plays/plays/').once();
-
-  dataSnapshot.value.forEach((value) {
-    result.add(value['url']);
-  });
-
-  return result;
 }
 
 Future<List<Pak>> getPlayPak() async {
