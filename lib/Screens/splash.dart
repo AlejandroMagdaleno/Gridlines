@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gridlines/Services/database.dart';
 import 'package:gridlines/pak.dart';
 import 'package:gridlines/Screens/home.dart';
-import 'package:gridlines/database.dart';
+import 'package:gridlines/Services/auth.dart';
 
 class SplashScreen extends StatefulWidget {
   String email = "";

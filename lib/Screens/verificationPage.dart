@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/Screens/splash.dart';
 import 'package:gridlines/Screens/welcomeScreen.dart';
-import 'package:gridlines/database.dart';
+import 'package:gridlines/Services/database.dart';
 
 class verificationPage extends StatefulWidget {
   String email = "";

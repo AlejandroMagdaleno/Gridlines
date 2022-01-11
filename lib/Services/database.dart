@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gridlines/pak.dart';
 
-import 'Athlete.dart';
+import '../Athlete.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
@@ -45,10 +45,6 @@ Future<void> checkForUser(String email) async {
     newUser.setAthleteEmail(email);
     newUser.setId(saveAthlete(newUser));
   }
-
-// For google sign in, we check for user by passing in user . email and return thatS athlete or create new one
-// For logging in with email, we check for user with matching email and return that athlete or create  new one
-// If we make it here, we found no athlete with existing email
 }
 
 Future<void> updateAthleteData(String email) async {

@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:gridlines/database.dart';
+import 'package:gridlines/Services/database.dart';
 
 class Athlete {
   String fName = "";

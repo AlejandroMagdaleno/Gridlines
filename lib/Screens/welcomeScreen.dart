@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gridlines/Screens/signup.dart';
 import 'package:gridlines/Screens/verificationPage.dart';
-
-import '../auth.dart';
+import 'package:gridlines/Services/auth.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
