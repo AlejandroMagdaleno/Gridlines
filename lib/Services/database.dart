@@ -1,8 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/pak.dart';
-
-import '../Athlete.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
