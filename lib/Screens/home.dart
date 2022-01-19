@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Dashboard(widget.user),
       MyTeams(),
       PlayPaks_Screen(widget.paks, widget.user),
-      MyPlays(),
+      MyPlays(widget.user),
       Icon(
         Icons.book_rounded,
         size: 150,
