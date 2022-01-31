@@ -29,7 +29,7 @@ class _PlayPakState extends State<PlayPak> {
         children: <Widget>[
           Container(
             child: Image.network(
-              widget.pak.url,
+              "https://lh3.googleusercontent.com/Zdopdchf1CPl3Vj4t3UK7cHJyqRSrdZhaR2epQF2fHdP-D_Z09NXcLiGzp__UR82CAcxaAfjNKeIUJaqUblhs2wgdhCVHGigOvJ1cUw_RoxBhCn6XBej=w600-l80-sg-rp",
               width: 150,
               height: 150,
             ),
@@ -41,13 +41,13 @@ class _PlayPakState extends State<PlayPak> {
             child: Column(children: <Widget>[
               Container(
                 child: Text(
-                  widget.pak.name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  widget.pak.PlayPakName,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ),
               Container(
                 child: Text(
-                  widget.pak.type,
+                  widget.pak.PlayPakPrice,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
               ),

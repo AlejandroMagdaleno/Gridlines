@@ -11,14 +11,6 @@ DatabaseReference saveAthlete(Athlete user) {
   return id;
 }
 
-void savePurchasedPak(Athlete currentUser, Pak chosenPak) {
-  var id = databaseReference
-      .child('Athletes/' + currentUser.getID().key + '/Paks/')
-      .push();
-
-  id.update(chosenPak.toJson());
-}
-
 Future<void> checkForUser(String email) async {
   DataSnapshot dataSnapshot = await databaseReference.child('Athletes/').once();
   bool _found = false;
@@ -77,10 +69,9 @@ Future<Athlete> getAthlete(String email) async {
   return athlete;
 }
 
-Future<List<Pak>> getPlayPak() async {
+Future<List<Pak>> getCurrentPlayPaks() async {
   List<Pak> paks = [];
-  DataSnapshot dataSnapshot =
-      await databaseReference.child('Plays/plays/').once();
+  DataSnapshot dataSnapshot = await databaseReference.child('Paks/Paks').once();
 
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((value) {
@@ -90,3 +81,41 @@ Future<List<Pak>> getPlayPak() async {
   }
   return paks;
 }
+
+Future<Pak> getPlayPak(String UID) async {
+  Pak pak = new Pak();
+
+  DataSnapshot dataSnapshot = await databaseReference.child('Paks/Paks').once();
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((value) {
+      if (value['PlayPakUniqueID'] == UID) {
+        pak = pak.createPak(value);
+        debugPrint("found pak " + pak.PlayPakGroupID);
+      }
+    });
+  }
+
+  return pak;
+}
+
+void savePurchasedPak(Athlete currentUser, Pak chosenPak) {
+  var id = databaseReference
+      .child('Athletes/' + currentUser.getID().key + '/Paks/')
+      .push();
+
+  id.update(chosenPak.saveID());
+}
+
+/*future<list<plays>> displayBoughtPlays() async{
+
+  for each pak owned in athlete
+  {
+    list of group ids
+    add group id into list if not already in list
+    find all plays with matching group ids 
+    if(play.groupid == to any element in [list of group ids])
+       listofboughtplays.add(play)
+  }
+
+  return listOfPlayBought;
+} */

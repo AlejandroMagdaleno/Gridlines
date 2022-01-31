@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
+import 'package:gridlines/Services/database.dart';
 
 class MyPlays extends StatefulWidget {
   Athlete currentAthlete = new Athlete();
   MyPlays(Athlete athlete) {
     currentAthlete = athlete;
+    getPlayPak('000001').then((value) => null);
   }
   @override
   _MyPlaysState createState() => _MyPlaysState();
