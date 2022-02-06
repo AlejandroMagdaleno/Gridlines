@@ -4,7 +4,7 @@ import 'package:gridlines/pak.dart';
 import 'package:gridlines/Screens/dashboard.dart';
 import 'package:gridlines/Screens/myPlays.dart';
 import 'package:gridlines/Screens/myTeams.dart';
-import 'package:gridlines/Screens/playPaks.dart';
+import 'package:gridlines/Screens/playPaksScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   Athlete user = new Athlete();

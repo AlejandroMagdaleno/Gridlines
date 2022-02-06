@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/pak.dart';
+import 'package:gridlines/play.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
@@ -106,16 +107,36 @@ void savePurchasedPak(Athlete currentUser, Pak chosenPak) {
   id.update(chosenPak.saveID());
 }
 
-/*future<list<plays>> displayBoughtPlays() async{
+Future<List<Play>> getAthletePlays(Athlete currentUser) async {
+  List<String> groupIDS = [];
+  List<Play> boughtPlays = [];
 
-  for each pak owned in athlete
-  {
-    list of group ids
-    add group id into list if not already in list
-    find all plays with matching group ids 
-    if(play.groupid == to any element in [list of group ids])
-       listofboughtplays.add(play)
+  DataSnapshot playsDataSnapshot =
+      await databaseReference.child('Plays/').once();
+
+  DataSnapshot dataSnapshot = await databaseReference
+      .child('Athletes/' + currentUser.getID().key + '/Paks/')
+      .once();
+
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((key, value) {
+      if (groupIDS.contains(value['PlayPakGroupID'])) {
+        debugPrint("Group id is already in the list");
+      } else {
+        groupIDS.add(value['PlayPakGroupID']);
+      }
+    });
   }
 
-  return listOfPlayBought;
-} */
+  if (playsDataSnapshot.value != null) {
+    playsDataSnapshot.value.forEach((value) {
+      if (groupIDS.contains(value['PlayPakGroupID'])) {
+        Play play = new Play();
+        play = play.createPlay(value);
+        boughtPlays.add(play);
+      }
+    });
+  }
+
+  return boughtPlays;
+}

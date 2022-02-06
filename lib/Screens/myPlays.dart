@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
+import 'package:gridlines/Custom_Widgets/PlayWidget.dart';
 import 'package:gridlines/Services/database.dart';
+import 'package:gridlines/play.dart';
 
 class MyPlays extends StatefulWidget {
   Athlete currentAthlete = new Athlete();
   MyPlays(Athlete athlete) {
     currentAthlete = athlete;
-    getPlayPak('000001').then((value) => null);
   }
   @override
   _MyPlaysState createState() => _MyPlaysState();
 }
 
 class _MyPlaysState extends State<MyPlays> {
+  List<Play> boughtPlays = [];
   List<bool> _selections = List.generate(3, (index) => false);
+  void fillBoughtPlays() {
+    getAthletePlays(widget.currentAthlete).then((value) {
+      setState(() {
+        boughtPlays = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    fillBoughtPlays();
     return Container(
       child: Column(
         children: [
@@ -55,11 +66,12 @@ class _MyPlaysState extends State<MyPlays> {
           ),
           Expanded(
               child: ListView.separated(
-                  itemBuilder: (_, index) => Text('pak'),
+                  itemBuilder: (_, index) =>
+                      PlayWidget(boughtPlays.elementAt(index)),
                   separatorBuilder: (_, n) => Divider(
                         color: Colors.grey,
                       ),
-                  itemCount: 3))
+                  itemCount: boughtPlays.length))
         ],
       ),
     );
