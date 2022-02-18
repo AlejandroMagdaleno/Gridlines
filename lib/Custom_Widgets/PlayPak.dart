@@ -19,7 +19,7 @@ class _PlayPakState extends State<PlayPak> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(15),
+      margin: EdgeInsets.all(10),
       padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
       decoration: BoxDecoration(
           color: Colors.grey[200],

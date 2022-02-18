@@ -32,14 +32,6 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
             style: TextStyle(
                 fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          Container(
-            child: Row(
-              children: <Widget>[],
-            ),
-          ),
-          SizedBox(
-            height: 1,
-          ),
           Expanded(
             child: ListView.separated(
                 itemBuilder: (_, index) => PlayPak(

@@ -15,7 +15,7 @@ class _PlayWidgetState extends State<PlayWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(widget.play.PlayPakGroupID),
+      child: Text(widget.play.PlayName),
     );
   }
 }

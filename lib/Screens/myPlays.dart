@@ -65,13 +65,14 @@ class _MyPlaysState extends State<MyPlays> {
             },
           ),
           Expanded(
-              child: ListView.separated(
-                  itemBuilder: (_, index) =>
-                      PlayWidget(boughtPlays.elementAt(index)),
-                  separatorBuilder: (_, n) => Divider(
-                        color: Colors.grey,
-                      ),
-                  itemCount: boughtPlays.length))
+            child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: boughtPlays.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    PlayWidget(boughtPlays.elementAt(index))),
+          )
         ],
       ),
     );
