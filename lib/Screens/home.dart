@@ -13,6 +13,8 @@ class HomeScreen extends StatefulWidget {
   HomeScreen(Athlete athlete, List<Pak> currentPaks) {
     this.user = athlete;
     paks = currentPaks;
+
+    debugPrint(user.lName);
   }
 
   @override

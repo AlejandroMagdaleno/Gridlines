@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/Screens/verificationPage.dart';
@@ -12,12 +14,16 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final TextEditingController pController = TextEditingController();
-  final TextEditingController fController = TextEditingController();
-  final TextEditingController lController = TextEditingController();
-  final TextEditingController eController = TextEditingController();
-  final TextEditingController sController = TextEditingController();
-  final TextEditingController cController = TextEditingController();
+  final TextEditingController pController = TextEditingController(); // password
+  final TextEditingController fController =
+      TextEditingController(); // first name
+  final TextEditingController lController =
+      TextEditingController(); // last name
+  final TextEditingController eController = TextEditingController(); // email
+  final TextEditingController dController =
+      TextEditingController(); // display name
+  final TextEditingController cController =
+      TextEditingController(); // due to change
 
   final _formKey = GlobalKey<FormState>();
 
@@ -38,7 +44,7 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             children: <Widget>[
               Container(
-                  padding: EdgeInsets.fromLTRB(30, 30, 20, 20),
+                  padding: EdgeInsets.fromLTRB(30, 0, 20, 20),
                   child: Image.asset('images/grid.png')),
               Container(
                 child: Text(
@@ -57,6 +63,7 @@ class _SignUpState extends State<SignUp> {
                       Container(
                         width: 350,
                         child: TextFormField(
+                          obscureText: true,
                           decoration: InputDecoration(
                               labelText: "Password",
                               labelStyle:
@@ -124,26 +131,10 @@ class _SignUpState extends State<SignUp> {
                         width: 350,
                         child: TextFormField(
                           decoration: InputDecoration(
-                              labelText: "State",
+                              labelText: "Display Name",
                               labelStyle:
                                   TextStyle(color: Colors.white, fontSize: 18)),
-                          controller: sController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return null;
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 350,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              labelText: "Country",
-                              labelStyle:
-                                  TextStyle(color: Colors.white, fontSize: 18)),
-                          controller: cController,
+                          controller: dController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return null;
@@ -163,7 +154,11 @@ class _SignUpState extends State<SignUp> {
                                   email: eController.text,
                                   password: pController.text);
                               Athlete newUser = new Athlete();
-                              newUser.setAthleteEmail(eController.text);
+                              newUser.setUserInfo(
+                                  fController.text,
+                                  lController.text,
+                                  dController.text,
+                                  eController.text);
                               newUser.setId(saveAthlete(newUser));
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(

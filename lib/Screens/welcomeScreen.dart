@@ -95,13 +95,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     backgroundColor: MaterialStateProperty.all(Colors.green),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)))),
-                onPressed: () {
+                onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     Authentication auth = new Authentication();
-                    auth.signIn(
-                        email: eController.text,
-                        password: pController.text,
-                        context: context);
+
+                    try {
+                      UserCredential userCredential = await FirebaseAuth
+                          .instance
+                          .signInWithEmailAndPassword(
+                              email: eController.text,
+                              password: pController.text);
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) =>
+                              verificationPage(eController.text)));
+                    } on FirebaseAuthException catch (e) {
+                      debugPrint(e.message);
+                    }
                   }
                 },
                 child: Padding(
@@ -137,8 +146,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 onPressed: () async {
                   User? user =
                       await Authentication.signInWithGoogle(context: context);
-                  // take the user signed in, and
-                  //only create an athlete account if one does not exist
                   if (user != null) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => verificationPage(user.email!)));

@@ -27,14 +27,12 @@ Future<void> checkForUser(String email) async {
         } else {
           debugPrint("No user exists under the email: " + email);
           Athlete newUser = new Athlete();
-          newUser.setAthleteEmail(email);
           newUser.setId(saveAthlete(newUser));
         }
       }
     });
   } else {
     Athlete newUser = new Athlete();
-    newUser.setAthleteEmail(email);
     newUser.setId(saveAthlete(newUser));
   }
 }

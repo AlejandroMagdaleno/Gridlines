@@ -9,7 +9,6 @@ class Dashboard extends StatefulWidget {
     this.user = athlete;
   }
   List<String> attributes = [];
-
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -18,11 +17,12 @@ class _DashboardState extends State<Dashboard> {
   bool _isPlayer = false;
   bool _isCoach = false;
   bool _isAdmin = false;
-  bool _isVisible = false;
+  //bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
@@ -72,29 +72,6 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ),
-            ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.redAccent),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)))),
-              onPressed: () async {
-                await Authentication.signOut(context: context);
-
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => WelcomeScreen()));
-              },
-              child: Padding(
-                padding: EdgeInsets.only(top: 8, bottom: 8),
-                child: Text(
-                  "Sign out",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 2),
-                ),
-              ),
-            ),
             SizedBox(
               height: 20,
             ),
@@ -106,7 +83,7 @@ class _DashboardState extends State<Dashboard> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'I-Am-GridMaster',
+                        widget.user.displayName,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18),
@@ -122,7 +99,7 @@ class _DashboardState extends State<Dashboard> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Name',
+                        widget.user.fName + ' ' + widget.user.lName,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18),
@@ -229,6 +206,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
+                    /*
                     Divider(
                       height: 20,
                       thickness: 1,
@@ -253,7 +231,32 @@ class _DashboardState extends State<Dashboard> {
                           activeColor: Colors.green,
                         ),
                       ],
-                    )
+                    ),*/
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.redAccent),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)))),
+                      onPressed: () async {
+                        await Authentication.signOut(context: context);
+
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => WelcomeScreen()));
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 8, bottom: 8),
+                        child: Text(
+                          "Sign out",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 2),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

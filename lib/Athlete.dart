@@ -21,16 +21,18 @@ class Athlete {
     this.id = id;
   }
 
-  void setAthleteEmail(String? email) {
-    // when a google user is created. pass in the email to the new athlete object made to store the email locally.
-    this.email = email!;
+  void setUserInfo(String first, String last, String display, String email) {
+    this.fName = first;
+    this.lName = last;
+    this.displayName = display;
+    this.email = email;
   }
 
   Map<String, dynamic> toJson() {
     return {
       'display_name': this.displayName,
-      'f_name': this.fName,
-      'l_Name': this.lName,
+      'first': this.fName,
+      'last': this.lName,
       'email': this.email,
     };
   }
@@ -39,16 +41,15 @@ class Athlete {
 Athlete createAthlete(record) {
   Map<String, dynamic> attributes = {
     'display_name': '',
-    'f_name': '',
-    'l_Name': '',
+    'first': '',
+    'last': '',
     'email': '',
   };
 
   record.forEach((key, value) => {attributes[key] = value});
   Athlete athlete = new Athlete();
-  //athlete.displayName = attributes['display_name'];
-  //athlete.fName = attributes['f_name'];
-  //athlete.lName = attributes['l_name'];
-  athlete.setAthleteEmail(attributes['email']);
+  athlete.displayName = attributes['display_name'];
+  athlete.fName = attributes['first'];
+  athlete.email = attributes['email'];
   return athlete;
 }
