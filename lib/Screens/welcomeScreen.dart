@@ -72,6 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextFormField(
+                      obscureText: true,
                       decoration: InputDecoration(
                           labelText: "Password",
                           labelStyle:
@@ -154,7 +155,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
             Container(
-                padding: EdgeInsets.only(top: 0),
+                padding: EdgeInsets.only(top: 50),
                 child: TextButton(
                   child: Text(
                     "Don't have an account? Sign up here",

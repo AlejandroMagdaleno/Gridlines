@@ -67,7 +67,7 @@ class _MyPlaysState extends State<MyPlays> {
           Expanded(
             child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                  crossAxisCount: 1,
                 ),
                 itemCount: boughtPlays.length,
                 itemBuilder: (BuildContext context, int index) =>

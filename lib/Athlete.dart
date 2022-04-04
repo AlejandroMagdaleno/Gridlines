@@ -30,9 +30,9 @@ class Athlete {
 
   Map<String, dynamic> toJson() {
     return {
-      'display_name': this.displayName,
       'first': this.fName,
       'last': this.lName,
+      'display_name': this.displayName,
       'email': this.email,
     };
   }
@@ -40,16 +40,18 @@ class Athlete {
 
 Athlete createAthlete(record) {
   Map<String, dynamic> attributes = {
-    'display_name': '',
     'first': '',
     'last': '',
+    'display_name': '',
     'email': '',
   };
 
   record.forEach((key, value) => {attributes[key] = value});
   Athlete athlete = new Athlete();
-  athlete.displayName = attributes['display_name'];
   athlete.fName = attributes['first'];
+  athlete.lName = attributes['last'];
+  athlete.displayName = attributes['display_name'];
+
   athlete.email = attributes['email'];
   return athlete;
 }

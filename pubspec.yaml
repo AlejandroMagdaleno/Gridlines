@@ -54,6 +54,7 @@ flutter:
     - images/field.jpg
     - images/grid.png
     - images/signwithgoogle.png
+    - images/Pak_Images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

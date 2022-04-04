@@ -18,6 +18,8 @@ class PlayPak extends StatefulWidget {
 class _PlayPakState extends State<PlayPak> {
   @override
   Widget build(BuildContext context) {
+    String pakImage = widget.pak.PlayPakPhoto1;
+    debugPrint(pakImage);
     return Container(
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -28,11 +30,9 @@ class _PlayPakState extends State<PlayPak> {
       child: Row(
         children: <Widget>[
           Container(
-            child: Image.network(
-              "https://lh3.googleusercontent.com/Zdopdchf1CPl3Vj4t3UK7cHJyqRSrdZhaR2epQF2fHdP-D_Z09NXcLiGzp__UR82CAcxaAfjNKeIUJaqUblhs2wgdhCVHGigOvJ1cUw_RoxBhCn6XBej=w600-l80-sg-rp",
-              width: 150,
-              height: 150,
-            ),
+            child: Image.asset('images/Pak_Images/$pakImage'),
+            width: 150,
+            height: 150,
           ),
           SizedBox(
             width: 40,
