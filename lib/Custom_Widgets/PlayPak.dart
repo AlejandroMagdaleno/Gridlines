@@ -59,12 +59,57 @@ class _PlayPakState extends State<PlayPak> {
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)))),
                   onPressed: () {
-                    savePurchasedPak(widget.currentAthlete, widget.pak);
+                    //savePurchasedPak(widget.currentAthlete, widget.pak);
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text(widget.pak.PlayPakName),
+                              content: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Pak details',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(widget.pak.PlayPakNumofPlays +
+                                      ' plays included'),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(widget.pak.PlayPakDescription),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop('dialog');
+                                    },
+                                    child: Text(
+                                      'Close',
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.red),
+                                    )),
+                                TextButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Add to cart',
+                                      style: TextStyle(fontSize: 16),
+                                    ))
+                              ],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30))),
+                            ));
                   },
                   child: Padding(
                     padding: EdgeInsets.only(top: 8, bottom: 8),
                     child: Text(
-                      "Add to cart",
+                      "Open pak",
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
