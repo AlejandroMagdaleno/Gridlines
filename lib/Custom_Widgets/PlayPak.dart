@@ -95,7 +95,10 @@ class _PlayPakState extends State<PlayPak> {
                                           fontSize: 16, color: Colors.red),
                                     )),
                                 TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      addPaktoCart(
+                                          widget.currentAthlete, widget.pak);
+                                    },
                                     child: Text(
                                       'Add to cart',
                                       style: TextStyle(fontSize: 16),

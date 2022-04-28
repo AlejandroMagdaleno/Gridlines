@@ -81,6 +81,24 @@ Future<List<Pak>> getCurrentPlayPaks() async {
   return paks;
 }
 
+Future<List<Pak>> displayCurrentCart(Athlete currentUser) async {
+  List<Pak> paksInCart = [];
+
+  DataSnapshot dataSnapshot = await databaseReference
+      .child('Athletes/' + currentUser.getID().key + '/Cart/')
+      .once();
+
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((key, value) {
+      Pak pak = new Pak();
+      pak = pak.createPak(value);
+      paksInCart.add(pak);
+    });
+  }
+
+  return paksInCart;
+}
+
 Future<Pak> getPlayPak(String UID) async {
   Pak pak = new Pak();
 
@@ -97,9 +115,35 @@ Future<Pak> getPlayPak(String UID) async {
   return pak;
 }
 
-void savePurchasedPak(Athlete currentUser, Pak chosenPak) {
+void savePurchasedPak(Athlete currentUser) async {
+//  id.update(chosenPak.saveID());
+  DataSnapshot dataSnapshot = await databaseReference
+      .child('Athletes/' + currentUser.getID().key + '/Cart/')
+      .once();
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((key, value) {
+      var id = databaseReference
+          .child('Athletes/' + currentUser.getID().key + '/Paks/')
+          .push();
+
+      Pak pak = new Pak();
+      pak = pak.createPak(value);
+      id.update(pak.saveID());
+    });
+  }
+}
+
+void clearCart(Athlete currentUser) async {
+  var id =
+      databaseReference.child('Athletes/' + currentUser.getID().key + '/Cart/');
+  debugPrint('here');
+
+  id.remove();
+}
+
+void addPaktoCart(Athlete currentUser, Pak chosenPak) {
   var id = databaseReference
-      .child('Athletes/' + currentUser.getID().key + '/Paks/')
+      .child('Athletes/' + currentUser.getID().key + '/Cart/')
       .push();
 
   id.update(chosenPak.saveID());
