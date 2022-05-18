@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
-import 'package:gridlines/Custom_Widgets/PlayPak.dart';
 import 'package:gridlines/Services/database.dart';
 import 'package:gridlines/pak.dart';
-import 'package:gridlines/play.dart';
 
 class CartScreen extends StatefulWidget {
   Athlete currentAthlete = new Athlete();
@@ -17,39 +15,52 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   List<Pak> cartPaks = [];
   void fillCartPaks() {
-    displayCurrentCart(widget.currentAthlete).then((value) => cartPaks = value);
+    getCurrentCart(widget.currentAthlete).then((value) {
+      if (this.mounted) {
+        setState(() {
+          cartPaks = value;
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    fillCartPaks();
     return Scaffold(
         body: Column(children: [
       Text('Cart'),
       SizedBox(
         height: 20,
       ),
-      TextButton(
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop('dialog');
-          },
-          child: Text('Back to PlayPaks')),
-      TextButton(
-          onPressed: () => clearCart(widget.currentAthlete),
-          child: Text('Clear Cart')),
+      Text('Items in cart'),
       Expanded(
         child: ListView.separated(
-            itemBuilder: (_, index) =>
-                PlayPak(cartPaks.elementAt(index), widget.currentAthlete),
+            itemBuilder: (_, index) {
+              if (cartPaks.isEmpty) {
+                return Text('Cart is empty');
+              } else {
+                return Text("pak");
+              }
+            },
             separatorBuilder: (_, n) => Divider(
                   color: Colors.grey,
                 ),
             cacheExtent: 500,
             scrollDirection: Axis.vertical,
-            itemCount: 10),
+            itemCount: cartPaks.length),
       ),
       TextButton(
           onPressed: () => savePurchasedPak(widget.currentAthlete),
           child: Text('Purchase Now')),
+      TextButton(
+          onPressed: () => clearCart(widget.currentAthlete),
+          child: Text('Clear Cart')),
+      TextButton(
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop('dialog');
+          },
+          child: Text('Back to PlayPaks')),
     ]));
   }
 }

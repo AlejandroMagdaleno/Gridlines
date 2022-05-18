@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gridlines/Athlete.dart';
@@ -76,12 +78,13 @@ Future<List<Pak>> getCurrentPlayPaks() async {
     dataSnapshot.value.forEach((value) {
       Pak pak = new Pak();
       paks.add(pak.createPak(value));
+      debugPrint('found paks');
     });
   }
   return paks;
 }
 
-Future<List<Pak>> displayCurrentCart(Athlete currentUser) async {
+Future<List<Pak>> getCurrentCart(Athlete currentUser) async {
   List<Pak> paksInCart = [];
 
   DataSnapshot dataSnapshot = await databaseReference
@@ -141,12 +144,33 @@ void clearCart(Athlete currentUser) async {
   id.remove();
 }
 
-void addPaktoCart(Athlete currentUser, Pak chosenPak) {
+void addPaktoCart(Athlete currentUser, Pak chosenPak) async {
+  List<String> groupIDS = [];
+
   var id = databaseReference
       .child('Athletes/' + currentUser.getID().key + '/Cart/')
       .push();
 
-  id.update(chosenPak.saveID());
+  DataSnapshot dataSnapshot = await databaseReference
+      .child('Athletes/' + currentUser.getID().key + '/Cart/')
+      .once();
+
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((key, value) {
+      groupIDS.add(value['PlayPakGroupID']);
+    });
+  }
+
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((key, value) {
+      if (!groupIDS.contains(chosenPak.PlayPakGroupID)) {
+        debugPrint('didnt find pack so added one in ');
+        id.update(chosenPak.saveID());
+      }
+    });
+  } else {
+    id.update(chosenPak.saveID());
+  }
 }
 
 Future<List<Play>> getAthletePlays(Athlete currentUser) async {

@@ -98,6 +98,8 @@ class _PlayPakState extends State<PlayPak> {
                                     onPressed: () {
                                       addPaktoCart(
                                           widget.currentAthlete, widget.pak);
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop('dialog');
                                     },
                                     child: Text(
                                       'Add to cart',

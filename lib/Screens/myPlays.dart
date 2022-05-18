@@ -18,9 +18,11 @@ class _MyPlaysState extends State<MyPlays> {
   List<bool> _selections = List.generate(3, (index) => false);
   void fillBoughtPlays() {
     getAthletePlays(widget.currentAthlete).then((value) {
-      setState(() {
-        boughtPlays = value;
-      });
+      if (this.mounted) {
+        setState(() {
+          boughtPlays = value;
+        });
+      }
     });
   }
 
