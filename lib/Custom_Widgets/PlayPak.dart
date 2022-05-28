@@ -19,7 +19,6 @@ class _PlayPakState extends State<PlayPak> {
   @override
   Widget build(BuildContext context) {
     String pakImage = widget.pak.PlayPakPhoto1;
-    debugPrint(pakImage);
     return Container(
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.fromLTRB(5, 5, 5, 5),

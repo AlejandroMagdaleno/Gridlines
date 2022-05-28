@@ -24,9 +24,12 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          Container(
-            child: Image.asset('images/grid.png'),
-            height: 150,
+          // Container(
+          //   child: Image.asset('images/grid.png'),
+          //   height: 150,
+          // ),
+          SizedBox(
+            height: 50,
           ),
           Text(
             "Current Paks",

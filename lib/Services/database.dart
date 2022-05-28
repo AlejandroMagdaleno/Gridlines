@@ -18,7 +18,6 @@ Future<void> checkForUser(String email) async {
   DataSnapshot dataSnapshot = await databaseReference.child('Athletes/').once();
   bool _found = false;
 
-  debugPrint('Checking for user $email');
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((key, value) {
       Athlete existingUser = createAthlete(value);
@@ -27,7 +26,6 @@ Future<void> checkForUser(String email) async {
         if (existingUser.email == email) {
           _found = true;
         } else {
-          debugPrint("No user exists under the email: " + email);
           Athlete newUser = new Athlete();
           newUser.setId(saveAthlete(newUser));
         }
@@ -78,15 +76,13 @@ Future<List<Pak>> getCurrentPlayPaks() async {
     dataSnapshot.value.forEach((value) {
       Pak pak = new Pak();
       paks.add(pak.createPak(value));
-      debugPrint('found paks');
     });
   }
   return paks;
 }
 
 Future<List<Pak>> getCurrentCart(Athlete currentUser) async {
-  List<Pak> paksInCart = [];
-
+  List<Pak> paks = [];
   DataSnapshot dataSnapshot = await databaseReference
       .child('Athletes/' + currentUser.getID().key + '/Cart/')
       .once();
@@ -94,12 +90,11 @@ Future<List<Pak>> getCurrentCart(Athlete currentUser) async {
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((key, value) {
       Pak pak = new Pak();
-      pak = pak.createPak(value);
-      paksInCart.add(pak);
+      paks.add(pak.createPak(value));
     });
   }
 
-  return paksInCart;
+  return paks;
 }
 
 Future<Pak> getPlayPak(String UID) async {
@@ -110,7 +105,6 @@ Future<Pak> getPlayPak(String UID) async {
     dataSnapshot.value.forEach((value) {
       if (value['PlayPakUniqueID'] == UID) {
         pak = pak.createPak(value);
-        debugPrint("found pak " + pak.PlayPakGroupID);
       }
     });
   }
@@ -139,7 +133,6 @@ void savePurchasedPak(Athlete currentUser) async {
 void clearCart(Athlete currentUser) async {
   var id =
       databaseReference.child('Athletes/' + currentUser.getID().key + '/Cart/');
-  debugPrint('here');
 
   id.remove();
 }
@@ -164,7 +157,6 @@ void addPaktoCart(Athlete currentUser, Pak chosenPak) async {
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((key, value) {
       if (!groupIDS.contains(chosenPak.PlayPakGroupID)) {
-        debugPrint('didnt find pack so added one in ');
         id.update(chosenPak.saveID());
       }
     });
@@ -187,7 +179,6 @@ Future<List<Play>> getAthletePlays(Athlete currentUser) async {
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((key, value) {
       if (groupIDS.contains(value['PlayPakGroupID'])) {
-        debugPrint("Group id is already in the list");
       } else {
         groupIDS.add(value['PlayPakGroupID']);
       }
