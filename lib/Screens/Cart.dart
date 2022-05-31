@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
-import 'package:gridlines/Custom_Widgets/PlayPak.dart';
 import 'package:gridlines/Services/database.dart';
 import 'package:gridlines/pak.dart';
 
 class CartScreen extends StatefulWidget {
   Athlete currentAthlete = new Athlete();
+  static List<Pak> cartPaks = [];
+
   CartScreen(Athlete athlete) {
     currentAthlete = athlete;
   }
@@ -14,20 +15,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<Pak> cartPaks = [];
-  void fillCartPaks() {
-    if (mounted) {
-      setState(() {
-        getCurrentCart(widget.currentAthlete).then((value) {
-          cartPaks = value;
-        });
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    fillCartPaks();
     return Scaffold(
         body: Column(children: [
       Text('Cart'),
@@ -36,22 +25,38 @@ class _CartScreenState extends State<CartScreen> {
       ),
       Text('Items in cart'),
       Expanded(
-        child: ListView.separated(
-            itemBuilder: (_, index) {
-              return CartItem(widget.currentAthlete, cartPaks.elementAt(index));
-            },
-            separatorBuilder: (_, n) => Divider(
-                  color: Colors.grey,
-                ),
-            cacheExtent: 500,
-            scrollDirection: Axis.vertical,
-            itemCount: cartPaks.length),
+        child: FutureBuilder<List<Pak>>(
+          future: getCurrentCart(widget.currentAthlete),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              debugPrint(snapshot.data!.length.toString() + " Data");
+              return ListView.separated(
+                  itemBuilder: (_, index) {
+                    return CartItem(
+                        widget.currentAthlete, snapshot.data!.elementAt(index));
+                  },
+                  separatorBuilder: (_, n) => Divider(
+                        color: Colors.grey,
+                      ),
+                  cacheExtent: 500,
+                  scrollDirection: Axis.vertical,
+                  itemCount: snapshot.data!.length);
+            } else {
+              return Text('Empty');
+            }
+            ;
+          },
+        ),
       ),
       TextButton(
           onPressed: () => savePurchasedPak(widget.currentAthlete),
           child: Text('Purchase Now')),
       TextButton(
-          onPressed: () => clearCart(widget.currentAthlete),
+          onPressed: () {
+            clearCart(widget.currentAthlete);
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => CartScreen(widget.currentAthlete)));
+          },
           child: Text('Clear Cart')),
       TextButton(
           onPressed: () {
