@@ -19,7 +19,6 @@ class _PlayPakState extends State<PlayPak> {
   @override
   Widget build(BuildContext context) {
     String pakImage = widget.pak.PlayPakPhoto1;
-    debugPrint(pakImage);
     return Container(
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -95,7 +94,12 @@ class _PlayPakState extends State<PlayPak> {
                                           fontSize: 16, color: Colors.red),
                                     )),
                                 TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      addPaktoCart(
+                                          widget.currentAthlete, widget.pak);
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop('dialog');
+                                    },
                                     child: Text(
                                       'Add to cart',
                                       style: TextStyle(fontSize: 16),

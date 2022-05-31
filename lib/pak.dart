@@ -69,6 +69,8 @@ class Pak {
     return {
       'PlayPakUniqueID': this.PlayPakUniqueID,
       'PlayPakGroupID': this.PlayPakGroupID,
+      'PlayPakName': this.PlayPakName,
+      'PlayPakPrice': this.PlayPakPrice,
     };
   }
 }

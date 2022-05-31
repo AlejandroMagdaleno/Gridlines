@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gridlines/Athlete.dart';
 import 'package:gridlines/Custom_Widgets/PlayPak.dart';
+import 'package:gridlines/Screens/Cart.dart';
+import 'package:gridlines/Services/database.dart';
 import 'package:gridlines/pak.dart';
 
 class PlayPaks_Screen extends StatefulWidget {
@@ -23,9 +25,12 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          Container(
-            child: Image.asset('images/grid.png'),
-            height: 150,
+          // Container(
+          //   child: Image.asset('images/grid.png'),
+          //   height: 150,
+          // ),
+          SizedBox(
+            height: 50,
           ),
           Text(
             "Current Paks",
@@ -42,7 +47,23 @@ class _PlayPaks_ScreenState extends State<PlayPaks_Screen> {
                 cacheExtent: 500,
                 scrollDirection: Axis.vertical,
                 itemCount: widget.paks.length),
-          )
+          ),
+          Divider(
+            height: 10,
+            color: Colors.black,
+          ),
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            CartScreen(widget.currentAthlete)));
+              },
+              child: Text(
+                'Open Cart',
+                style: TextStyle(fontSize: 16),
+              )),
         ],
       ),
     );
