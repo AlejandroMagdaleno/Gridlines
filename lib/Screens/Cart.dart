@@ -49,7 +49,12 @@ class _CartScreenState extends State<CartScreen> {
         ),
       ),
       TextButton(
-          onPressed: () => savePurchasedPak(widget.currentAthlete),
+          onPressed: () {
+            savePurchasedPak(widget.currentAthlete);
+            clearCart(widget.currentAthlete);
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => CartScreen(widget.currentAthlete)));
+          },
           child: Text('Purchase Now')),
       TextButton(
           onPressed: () {

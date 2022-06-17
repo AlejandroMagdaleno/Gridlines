@@ -37,15 +37,23 @@ Future<void> checkForUser(String email) async {
   }
 }
 
-Future<void> updateAthleteData(String email) async {
+Future<void> updateAthleteData(Athlete athlete) async {
   DataSnapshot dataSnapshot = await databaseReference.child('Athletes/').once();
   if (dataSnapshot.value != null) {
     dataSnapshot.value.forEach((key, value) {
       Athlete existingUser = createAthlete(value);
       existingUser.setId(databaseReference.child('Athletes/' + key));
 
-      if (existingUser.email == email) {
-        existingUser.getID().update(existingUser.toJson());
+      if (existingUser.email == athlete.email) {
+        debugPrint('found user to udpate');
+        debugPrint(athlete.styleOfPlay + " style");
+        existingUser.getID().set({
+          'first': athlete.fName,
+          'last': athlete.lName,
+          'display_name': athlete.displayName,
+          'email': athlete.email,
+          'styleOfPlay': athlete.styleOfPlay
+        });
       }
     });
   }
@@ -66,6 +74,21 @@ Future<Athlete> getAthlete(String email) async {
     });
   }
   return athlete;
+}
+
+Future<bool> isNewAthlete(String email) async {
+  DataSnapshot dataSnapshot = await databaseReference.child('Athletes/').once();
+  bool isNew = false;
+  Athlete athlete = new Athlete();
+  athlete.email = "";
+  if (dataSnapshot.value != null) {
+    dataSnapshot.value.forEach((key, value) {
+      if (value['styleOfPlay'] == "") {
+        isNew = true;
+      }
+    });
+  }
+  return isNew;
 }
 
 Future<List<Pak>> getCurrentPlayPaks() async {

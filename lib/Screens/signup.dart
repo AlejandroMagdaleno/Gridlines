@@ -24,6 +24,7 @@ class _SignUpState extends State<SignUp> {
       TextEditingController(); // display name
   final TextEditingController cController =
       TextEditingController(); // due to change
+  final TextEditingController sController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -158,7 +159,8 @@ class _SignUpState extends State<SignUp> {
                                   fController.text,
                                   lController.text,
                                   dController.text,
-                                  eController.text);
+                                  eController.text,
+                                  sController.text);
                               newUser.setId(saveAthlete(newUser));
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
